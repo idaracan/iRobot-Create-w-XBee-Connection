@@ -131,8 +131,8 @@
       forward();
       center();
 
-      /* //REVISAR POSICIONES
-        for (i =0; i < 4; i++){
+      /**/ //REVISAR POSICIONES
+        for (i = 1; i < 5; i++){
           switch(msg){
             case UP:
               obstaculo(UP,i);
@@ -149,35 +149,35 @@
           }
           rotate(1);
           delay(100);
-        }*/
+        }
     delay(1500);
     msg = 0;
   }
   
   void obstaculo(int dir, int i){
-  byte OBJ = 0xFF;
+  byte OBJ = 0x1F;
   digitalWrite(9,LOW); /* Por cuestión de estabilización del sensor*/
   delayMicroseconds(5);
   digitalWrite(9, HIGH); /* envío del pulso ultrasónico*/
   delayMicroseconds(10);
-  tiempo=100;//pulseIn(8, HIGH);
-  distancia= int(0.017*tiempo); /*fórmula para calcular la distancia obteniendo un valor entero*/
+  tiempo=pulseIn(8, HIGH);
+  distancia= 100;//int(0.017*tiempo); /*fórmula para calcular la distancia obteniendo un valor entero*/
   delay(1000);
   if (distancia < 100){
     switch(dir){
       case UP:
       switch(i){
         case 1:
-          OBJ = OBJ - B11000000;//norte
+          OBJ = OBJ - B00001000;//norte
         break;
         case 2:
-          OBJ = OBJ - B00000011;//oeste
+          OBJ = OBJ - B00000001;//oeste
         break;
         case 3:
-          OBJ = OBJ - B00110000;//sur
+          OBJ = OBJ - B00000100;//sur
         break;
         case 4:
-          OBJ = OBJ - B00001100;//este
+          OBJ = OBJ - B00000010;//este
         break;
       }
       break;
@@ -187,53 +187,51 @@
           OBJ = OBJ - B00110000;//sur
         break;
         case 2:
-          OBJ = OBJ - B00001100;//este
+          OBJ = OBJ - B00000010;//este
         break;
         case 3:
-          OBJ = OBJ - B11000000;//norte
+          OBJ = OBJ - B00001000;//norte
         break;
         case 4:
-          OBJ = OBJ - B00000011;//oeste
+          OBJ = OBJ - B00000001;//oeste
         break;
       }
       break;
       case RIGHT:
         switch(i){
         case 1:
-          OBJ = OBJ - B00001100;//este
+          OBJ = OBJ - B00000010;//este
         break;
         case 2:
-          OBJ = OBJ - B11000000;//norte
+          OBJ = OBJ - B00001000;//norte
         break;
         case 3:
-          OBJ = OBJ - B00000011;//oeste
+          OBJ = OBJ - B00000001;//oeste
         break;
         case 4:
-          OBJ = OBJ - B00110000;//sur
+          OBJ = OBJ - B00000100;//sur
         break;
       }
       break;
       case LEFT:
         switch(i){
         case 1:
-          OBJ = OBJ - B00000011;//oeste
+          OBJ = OBJ - B00000001;//oeste
         break;
         case 2:
-          OBJ = OBJ - B00110000;//sur
+          OBJ = OBJ - B00000100;//sur
         break;
         case 3:
-          OBJ = OBJ - B00001100;//este
+          OBJ = OBJ - B00000010;//este
         break;
         case 4:
-          OBJ = OBJ - B11000000;//norte
+          OBJ = OBJ - B00001000;//norte
         break;
       }
       break;
     }
   }
   if (i = 4){
-    Serial2.write(0x01);
-    delay(10);
     Serial2.write(OBJ);
     delay(10);
   }

@@ -44,7 +44,7 @@ void loop() {
         Serial3.write(RIGHT);
   }
   //RECIBE MENSAJE
-/*  int c=0;    
+/**/  int c=0;    
     do{
       digitalWrite(13,HIGH);
       while (Serial3.available() == 0) {
@@ -63,6 +63,6 @@ void loop() {
     break;
      default:
      break; 
-  }*/
+  }
   delay(100);
 }
